@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Module 1</title>
+
+    <!-- Fonts & Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+</head>
+
+<body>
+    <header>
+        <div class="left">Columbia GSAPP</div>
+        <div class="center">
+            Computational Design Workflows<br />
+            <span>Exploration of Digital Objects</span>
+        </div>
+        <div class="right">About</div>
+    </header>
+
+    <main>
+        <div class="project-meta">2025</div>
+        <div class="project-title">Assignment 3 - Spatial Canvases</div>
+        <div class="project-subtitle">Student Name: Zhengrui Jerry Hao</div>
+        <div class="advisor">Advisor Name: Catherine Griffiths</div>
+
+        <div class="section-title">Digital Object 1: Spatial Canvases</div>
+        <p>
+            This series of interactive canvases explores different modes of digital drawing, manipulation, and
+            visualization.
+            Each canvas demonstrates a distinct computational technique, from primitive-based composition to time- and
+            relation-driven structures, with an emphasis on clarity, accessibility, and interaction.
+        </p>
+
+        <!-- Canvas 1 -->
+        <div class="section-title">2D Drawing with Primitives</div>
+        <p>
+            A composition built from basic geometric primitives (lines, ellipses, polygons). It studies proportion,
+            rhythm, and layering through p5.js drawing APIs. Color and spacing are parameterized to keep the system
+            consistent.
+        </p>
+        <div id="canvas-container-1"></div>
+
+        <!-- Canvas 2 -->
+        <div class="section-title">Drawing Lines</div>
+        <p>
+            An interactive sketching surface: click and drag to draw. It demonstrates input handling, stateful
+            rendering,
+            and incremental stroke composition—useful for diagramming and annotation tools.
+        </p>
+        <div id="canvas-container-2"></div>
+
+        <!-- Canvas 3 -->
+        <div class="section-title">Orbit Control</div>
+        <p>
+            A simple 3D scene with orbit-style camera interaction. Users can rotate the view to inspect the object,
+            illustrating camera transforms and spatial navigation patterns used in architectural previews.
+        </p>
+        <div id="canvas-container-3"></div>
+
+        <!-- Canvas 4 -->
+        <div class="section-title">Temporal Structures</div>
+        <p>
+            A D3-based project timeline for a haptic + audio navigation system supporting low-vision mobility in NYC.
+            Bars encode start–end spans and progress; color channels encode categories (research, design, hardware,
+            software, testing, outreach).
+            Hover/focus reveals details via accessible tooltips.
+        </p>
+        <div id="temporal-structures" aria-label="Temporal Structures timeline visualization"></div>
+
+        <!-- Canvas 5 -->
+        <div class="section-title">Relational Structures — NYC Subway Network</div>
+        <p>
+            A D3 force-directed graph using a New York City subway–style dataset. Nodes represent
+            <strong>stations</strong>, <strong>lines</strong>, and <strong>boroughs</strong>;
+            links encode adjacent-station connectivity and station–line membership. Use search to filter, drag to
+            reposition, and hover/focus to read details.
+        </p>
+        <div id="relational-structures" aria-label="NYC subway relational graph"></div>
+
+        <!-- ===== Canvas 6: Geospatial Structures (MapLibre + OSM) ===== -->
+        <div class="section-title">Geospatial Structures — Manhattan Sketch</div>
+        <p>
+            An interactive MapLibre GL canvas exploring Manhattan: a base map with borough outline, a sample
+            walking corridor and a few landmarks. Pan/zoom, hover for details, and use the controls to toggle
+            layers. You can later swap the built-in demo data with your own <code>manhattan.geojson</code>.
+        </p>
+        <div id="mapbox-container-6" aria-label="MapLibre Manhattan sketch"></div>
+
+        <div class="controls">
+            <button id="mb6-toggle-borough">Hide Borough</button>
+            <button id="mb6-toggle-corridor">Hide Corridor</button>
+            <button id="mb6-toggle-landmarks">Hide Landmarks</button>
+            <button id="mb6-reset">Reset View</button>
+        </div>
+
+        <!-- 用 MapLibre（免 token），不要再加载 Mapbox 的 CSS/JS -->
+        <link href="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.css" rel="stylesheet">
+        <script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+
+        <!-- 脚本顺序：库 → 你的1-4号 → 第5号 -->
+        <script src="2d-drawing.js"></script>
+        <script src="bouncing-ball.js"></script>
+        <script src="zoom-pan.js"></script>
+        <script src="temporal_struacture.js"></script>
+        <script src="relational_structures.js"></script>
+        <script src="mapbox_canvas6.js"></script>
+
+        <!-- ===== Vote: Favorite Canvas ===== -->
+        <div class="section-title">Vote · Which canvas is your favorite?</div>
+        <p>Pick one below — results update in real time.</p>
+
+        <div class="poll-container">
+            <div class="poll-question">
+                <h3>Select your favorite canvas</h3>
+            </div>
+
+            <div class="vote-buttons">
+                <button class="vote-btn vote-yes" id="btn-canvas1">
+                    <span class="vote-text">1 · 2D Drawing with Primitives</span>
+                    <span class="vote-count" id="count-canvas1">0</span>
+                </button>
+                <button class="vote-btn vote-yes" id="btn-canvas2">
+                    <span class="vote-text">2 · Drawing Lines</span>
+                    <span class="vote-count" id="count-canvas2">0</span>
+                </button>
+                <button class="vote-btn vote-yes" id="btn-canvas3">
+                    <span class="vote-text">3 · Orbit Control</span>
+                    <span class="vote-count" id="count-canvas3">0</span>
+                </button>
+                <button class="vote-btn vote-yes" id="btn-canvas4">
+                    <span class="vote-text">4 · Temporal Structures</span>
+                    <span class="vote-count" id="count-canvas4">0</span>
+                </button>
+                <button class="vote-btn vote-yes" id="btn-canvas5">
+                    <span class="vote-text">5 · Relational Structures — NYC Subway</span>
+                    <span class="vote-count" id="count-canvas5">0</span>
+                </button>
+                <button class="vote-btn vote-yes" id="btn-canvas6">
+                    <span class="vote-text">6 · Geospatial Structures — Manhattan</span>
+                    <span class="vote-count" id="count-canvas6">0</span>
+                </button>
+            </div>
+
+            <div class="total-votes">
+                <p>Total votes: <span id="total-votes">0</span></p>
+            </div>
+        </div>
+
+        <div class="section-title">Connection Status</div>
+        <div id="connection-status" class="status-display">
+            <p>Connecting to Firebase...</p>
+        </div>
+
+        <!-- Firebase SDK（若页面没加载过，就加这两行） -->
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
+        <!-- Poll logic for 6 canvases -->
+        <script src="poll-canvases.js"></script>
+
+
+</body>
+
+</html>

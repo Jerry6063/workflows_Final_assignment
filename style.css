@@ -1,0 +1,305 @@
+/* ================================
+   Global Styles — style.css (full)
+   For Canvases 1–6
+   ================================ */
+
+/* ---- Color & spacing tokens ---- */
+:root{
+  --ink:#111;
+  --muted:#999;
+  --line:#eee;
+  --bg:#fff;
+
+  --shadow-1:0 1px 2px rgba(0,0,0,.04);
+  --shadow-2:0 8px 24px rgba(0,0,0,.06);
+
+  --brand-blue:#1A73E8;   /* stations / research */
+  --brand-orange:#E8710A; /* lines / design */
+  --brand-green:#34A853;  /* boroughs / hardware */
+  --brand-purple:#A142F4; /* software / collections */
+  --brand-red:#EA4335;    /* testing */
+  --brand-cyan:#00ACC1;   /* outreach / topics */
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  font-family:'Roboto',system-ui,-apple-system,Segoe UI,Helvetica,Arial,'Apple Color Emoji','Segoe UI Emoji',sans-serif;
+}
+
+/* =============================
+   Header
+   ============================= */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:16px;
+  padding:24px 40px;
+  border-bottom:1px solid #ccc;
+  font-size:14px;
+}
+header .left{ color:#aaa; white-space:nowrap; }
+header .center{ text-align:center; line-height:1.3; }
+header .center span{ font-size:12px; color:#888; }
+header .right{ color:#000; white-space:nowrap; }
+header .right a{ color:inherit; text-decoration:none; }
+@media (max-width:720px){
+  header{ flex-direction:column; padding:18px 16px; }
+}
+
+/* =============================
+   Main layout & typography
+   ============================= */
+main{
+  max-width:800px;
+  margin:60px auto;
+  padding:0 20px;
+}
+.project-meta{ font-size:14px; color:var(--muted); margin-bottom:8px; }
+.project-title{ font-size:24px; font-weight:400; margin-bottom:4px; }
+.project-subtitle{ font-size:16px; color:var(--muted); margin-bottom:24px; }
+.advisor{ font-size:14px; margin-bottom:40px; color:#333; }
+
+.section-title{
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+  margin-top:40px;
+  margin-bottom:12px;
+  font-size:14px;
+}
+p{ font-size:16px; line-height:1.6; margin:0 0 24px; color:#111; }
+code{ background:#f6f6f6; border:1px solid #eee; border-radius:6px; padding:.1rem .35rem; }
+
+/* =============================
+   Canvas cards (1–6)
+   ============================= */
+#canvas-container-1,
+#canvas-container-2,
+#canvas-container-3,
+#temporal-structures,
+#relational-structures,
+#mapbox-container-6{
+  margin-bottom:40px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  overflow:hidden;
+  background:#fff;
+  box-shadow:var(--shadow-1), var(--shadow-2);
+}
+
+/* Heights / paddings for data-viz canvases */
+#temporal-structures,
+#relational-structures{ padding:16px 16px 8px; }
+#mapbox-container-6{ height:520px; }
+
+/* =============================
+   Buttons & controls
+   ============================= */
+button,
+.controls .btn,
+.rs-controls .btn{
+  background:#111; color:#fff; border:none;
+  padding:8px 12px; border-radius:8px;
+  font-size:12px; cursor:pointer;
+  transition:background-color .2s ease, box-shadow .2s ease;
+}
+button:hover,
+.controls .btn:hover,
+.rs-controls .btn:hover{ background:#333; }
+.controls{ display:flex; gap:8px; flex-wrap:wrap; margin:8px 4px 24px; }
+
+/* Search input */
+.rs-controls{ display:flex; gap:8px; flex-wrap:wrap; margin:4px 4px 8px; }
+.rs-controls input[type="search"]{
+  padding:8px 10px; border:1px solid #ddd; border-radius:8px;
+  font-size:12px; min-width:220px; outline:none;
+}
+.rs-controls input[type="search"]:focus{ border-color:#bbb; }
+
+/* =============================
+   D3: shared viz styles
+   ============================= */
+.viz-header{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:12px; margin:4px 4px 12px;
+}
+.viz-title{ font-weight:700; letter-spacing:.2px; font-size:16px; }
+.viz-legend{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+.legend-item{ display:inline-flex; align-items:center; gap:6px; font-size:12px; color:#555; }
+.legend-swatch{
+  width:12px; height:12px; border-radius:3px;
+  border:1px solid rgba(0,0,0,.08);
+}
+.viz-caption{ margin:8px 4px 0; color:#777; font-size:12px; }
+
+/* Axes & grid (D3) */
+.axis path, .axis line{ stroke:#ddd; }
+.grid line{ stroke:#f0f0f0; }
+.grid path{ stroke:none; }
+
+/* Tooltip (D3 & generic) */
+.tooltip{
+  position:absolute; pointer-events:none;
+  background:#111; color:#fff; font-size:12px;
+  padding:8px 10px; border-radius:8px;
+  box-shadow:0 6px 18px rgba(0,0,0,.18);
+  opacity:0; transform:translateY(-4px);
+  transition:opacity .15s ease, transform .15s ease;
+  z-index:10; max-width:280px; line-height:1.5;
+}
+
+/* Keyboard focus */
+:focus-visible{ outline:2px solid #111; outline-offset:2px; }
+
+/* =============================
+   Canvas 4: Temporal (Gantt)
+   ============================= */
+.task{
+  rx:6; ry:6; cursor:pointer; outline:none;
+}
+.task:focus{ stroke:#111; stroke-width:2; }
+.progress{ fill:#fff; fill-opacity:.25; }
+
+/* =============================
+   Canvas 5: Relational graphs
+   ============================= */
+.link{ stroke:#ccd1d9; stroke-opacity:.85; }
+.link.adj{ stroke:var(--brand-blue); }          /* station adjacency */
+.link.member{ stroke:var(--brand-orange); }     /* station–line membership */
+.link.boro{ stroke:var(--brand-green); stroke-dasharray:3 3; } /* station–borough */
+
+/* (also support earlier relation names if你切换数据模型) */
+.link.authorship{ stroke:var(--brand-blue); }
+.link.cites{ stroke:var(--brand-orange); }
+.link.collab{ stroke:var(--brand-green); stroke-dasharray:4 3; }
+.link.related{ stroke:var(--brand-purple); stroke-dasharray:2 2; }
+.link.partof{ stroke:var(--brand-cyan); stroke-opacity:.9; }
+
+.node circle{ stroke:#fff; stroke-width:1.5; }
+.label{
+  font-size:11px; fill:#444; pointer-events:none;
+  text-shadow:0 1px 0 #fff, 0 0 2px rgba(255,255,255,.6);
+}
+
+/* =============================
+   Canvas 6: Mapbox canvas
+   ============================= */
+#mapbox-container-6 .mapboxgl-ctrl-group{
+  box-shadow:var(--shadow-1), var(--shadow-2);
+  border-radius:10px; overflow:hidden;
+}
+#mapbox-container-6 .mapboxgl-popup{
+  font-family:inherit;
+}
+#mapbox-container-6 .mapboxgl-popup-content{
+  border-radius:10px; box-shadow:var(--shadow-1), var(--shadow-2);
+  padding:10px 12px; font-size:12px;
+}
+
+/* =============================
+   Small helpers
+   ============================= */
+.hidden{ display:none!important; }
+.center{ text-align:center; }
+.muted{ color:var(--muted); }
+
+/* ===== Poll (Favorite Canvas) – clean UI ===== */
+.poll-container{
+  border:1px solid #eee;
+  border-radius:14px;
+  background:#fff;
+  box-shadow:0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+  padding:16px;
+  margin:12px 0 28px;
+}
+.poll-question h3{
+  margin:4px 0 12px;
+  font-size:16px;
+  letter-spacing:.2px;
+}
+.vote-buttons{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:10px;
+}
+@media (max-width:700px){
+  .vote-buttons{ grid-template-columns: 1fr; }
+}
+
+/* 选项按钮（白底卡片） */
+.poll-container .vote-btn{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  width:100%;
+  padding:12px 14px;
+  border:1px solid #eee;
+  border-radius:12px;
+  background:#fff !important;   /* 覆盖全局黑色按钮 */
+  color:#111 !important;
+  box-shadow:0 1px 1px rgba(0,0,0,.02);
+  transition:transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  overflow:hidden;
+}
+
+/* 柔和的占比进度条（由 JS 设置 --pct） */
+.poll-container .vote-btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  width:var(--pct, 0%);
+  background:linear-gradient(90deg,#f3f6ff, #eef2ff);
+  z-index:0;
+  transition:width .25s ease;
+}
+.poll-container .vote-text,
+.poll-container .vote-count{ position:relative; z-index:1; }
+
+.poll-container .vote-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 8px 24px rgba(0,0,0,.08);
+  border-color:#e6e6e6;
+}
+.poll-container .vote-btn:focus-visible{
+  outline:2px solid #111; outline-offset:2px;
+}
+
+/* 选中态（本地高亮） */
+.poll-container .vote-btn[data-active="true"]{
+  border-color:#111;
+  box-shadow:0 8px 24px rgba(0,0,0,.10);
+}
+
+/* 计数徽章 */
+.vote-count{
+  font-size:12px;
+  padding:4px 8px;
+  background:#111;
+  color:#fff;
+  border-radius:999px;
+  min-width:28px;
+  text-align:center;
+  transition:transform .2s ease;
+}
+.vote-count.updated{ animation:pulse .4s ease; }
+@keyframes pulse{
+  0%{ transform:scale(1); }
+  50%{ transform:scale(1.08); }
+  100%{ transform:scale(1); }
+}
+
+/* 总票数与状态 */
+.total-votes{ margin-top:10px; color:#666; font-size:14px; }
+.status-display{
+  border:1px dashed #e5e5e5; border-radius:10px; padding:10px 12px; color:#555;
+}
+.status-display p{ margin:0; }
